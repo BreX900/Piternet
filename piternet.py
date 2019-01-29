@@ -20,23 +20,19 @@ class Piternet(object):
     async def runForever(self):
         works: List[WorkCycle] = []
 
-        days: Tuple[Day] = (Day.FRIDAY, Day.SATURDAY, Day.SUNDAY)
-        tmpWorks: List[WorkCycle] = []
-        for day in days:
-            tmpWorks.append(WorkCycle(CycleWeek(day, hour=8), WorkerStart(self)))
-            tmpWorks.append(WorkCycle(CycleWeek(day, hour=4), WorkerStop(self)))
+        for day in Day:
+            if day >= Day.SATURDAY: # Sabato/Domenica
+                startTime = CycleWeek(day, hour=6)
+            else:
+                startTime = CycleWeek(day, hour=8)
 
-        for work in tmpWorks:
-            works.append(work)
+            if Day.SATURDAY <= day or day == Day.MONDAY: # Sabato/domenica o lunedi
+                endTime = CycleWeek(day, hour=4)
+            else:
+                endTime = CycleWeek(day, hour=1, minute=30)
 
-        days: Tuple[Day] = (Day.MONDAY, Day.TUESDAY, Day.WEDNESDAY, Day.THURSDAY)
-        tmpWorks: List[WorkCycle] = []
-        for day in days:
-            tmpWorks.append(WorkCycle(CycleWeek(day, hour=8), WorkerStart(self)))
-            tmpWorks.append(WorkCycle(CycleWeek(day, hour=1, minute=30), WorkerStop(self)))
-
-        for work in tmpWorks:
-            works.append(work)
+            works.append(WorkCycle(startTime, WorkerStart(self)))
+            works.append(WorkCycle(endTime, WorkerStop(self)))
 
         scheduler: SchedulerWorks = SchedulerWorks(works)
         await scheduler.runForever()

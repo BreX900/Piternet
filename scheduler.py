@@ -2,14 +2,14 @@ import logging
 from abc import ABCMeta, abstractmethod
 from asyncio import sleep
 from datetime import datetime, timedelta
-from enum import Enum
+from enum import Enum, IntEnum
 from typing import List
 
 
 log = logging.getLogger(__name__)
 
 
-class Day(Enum):
+class Day(IntEnum):
     MONDAY = 0
     TUESDAY = 1
     WEDNESDAY = 2
@@ -91,6 +91,7 @@ class CycleWeek(Cycle):
 
     def updateDatetime(self):
         self._datetime = self.day.firstNext(datetime.now().replace(**self.field.data))
+        log.debug(str(self.day)+": "+str(self._datetime))
         return self._datetime
 
 
