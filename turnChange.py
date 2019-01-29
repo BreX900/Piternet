@@ -159,9 +159,6 @@ class TurnChangeWindows(Tk):
         self.protocol("WM_DELETE_WINDOW", self.onExit)
         self._turnChangeFrame.refreshStatusPiternet()
 
-
-
-
     def callback(self, event):
         self._turnChangeFrame.refreshStatusPiternet()
         return

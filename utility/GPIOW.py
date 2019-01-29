@@ -24,13 +24,13 @@ class GPIO:
 
     @staticmethod
     def output(pin, tension):
-        #GPIO.log.info("GPIOW - StatusBoard: " + str(GPIO.boardPins) + "\nPins: " + str(GPIO.pins))
+        GPIO.log.info("GPIOW - StatusBoard: " + str(GPIO.boardPins) + "\nPins: " + str(GPIO.pins))
         if GPIO.pins.__contains__(pin):
             GPIO.boardPins[pin] = tension
 
     @staticmethod
     def input(pin):
-        #GPIO.log.info("GPIOW - StatusBoard: " + str(GPIO.boardPins) + "\nPins: " + str(GPIO.pins))
+        GPIO.log.info("GPIOW - StatusBoard: " + str(GPIO.boardPins) + "\nPins: " + str(GPIO.pins))
         return GPIO.boardPins[pin]
 
     @staticmethod

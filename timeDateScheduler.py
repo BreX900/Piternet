@@ -9,18 +9,21 @@ class TimeDateScheduler(metaclass=Singleton):
         self._stopWorking = stopWorking
         self._startHolidays = startHolidays
         self._stopHolidays = stopHolidays
+
     def getStart(self):
         dtn = datetime.now()
         if TimeDateScheduler.isHolidays(dtn):
             return dtn.replace(**self._startHolidays)
         else:
             return dtn.replace(**self._startWorking)
+
     def getStop(self):
         dtn = datetime.now()
         if TimeDateScheduler.isHolidays(dtn):
             return dtn.replace(**self._stopHolidays)
         else:
             return dtn.replace(**self._stopWorking)
+
     @staticmethod
     def isHolidays(dtn=datetime.now()):
         weekDay = dtn.weekday()

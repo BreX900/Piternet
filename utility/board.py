@@ -6,6 +6,7 @@ if DEVELOPMENT:
 else:
     import RPi.GPIO as GPIO
 
+
 class Board(metaclass=Singleton):  # GPIO.setwarnings(False)
     HIGH = 0  # ON
     LOW = 1  # OFF
