@@ -16,6 +16,9 @@ if __name__ == '__main__':
 
     if True:
         board = Board()
+        logger.info("RESET")
+        board.resetAll()
+        logger.info("FINISH RESET\nSTART SCHEDULER")
         loop = asyncio.get_event_loop()
         asyncio.ensure_future(Piternet(board).runForever())
         loop.run_forever()
