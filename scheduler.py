@@ -29,10 +29,10 @@ class Day(Enum):
         day: Day = cls.now(dtn)
         return day == Day.SATURDAY or day == Day.SUNDAY
 
-    def firsNext(self, dtn:datetime=None):
+    def firstNext(self, dtn:datetime=None):
         if dtn is None:
             dtn = datetime.now()
-        while not self.isHolidays(dtn):
+        while self.now(dtn) != self:
             dtn = dtn + timedelta(days=1)
         return dtn
 
@@ -45,6 +45,14 @@ class DateTimeField(object):
         self.minute = minute
         self.second = second
         self.microsecond = microsecond
+
+    @property
+    def data(self):
+        data = {}
+        for key, value in self.__dict__.items():
+            if value is not None:
+                data[key] = value
+        return data
 
 
 class Cycle(object, metaclass=ABCMeta):
@@ -75,7 +83,7 @@ class CycleWeek(Cycle):
         self._datetime = None
 
     def updateDatetime(self):
-        self._datetime = self.day.firsNext(datetime.now().replace(**self.field.__dict__))
+        self._datetime = self.day.firstNext(datetime.now().replace(**self.field.data))
         return self._datetime
 
 
@@ -93,11 +101,7 @@ class CycleDatetime(Cycle):
             beforeKey = key
 
     def updateDatetime(self):
-        data = {}
-        for key, value in self.field.__dict__.items():
-            if value and key != 'extra':
-                data[key] = value
-        self._datetime = datetime.now().replace(**data)
+        self._datetime = datetime.now().replace(**self.field.data)
         if datetime.now() >= self._datetime:
             self._datetime = self._datetime + timedelta(**self.extra)
         return self._datetime

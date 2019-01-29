@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import List
+from typing import List, Tuple
 
 from scheduler import SchedulerWorks, WorkCycle, CycleWeek, Day, Worker
 from utility.board import Board
@@ -18,10 +18,9 @@ class Piternet(object):
         self.log.info("Init Piternet - " + str(self.status()))
 
     async def runForever(self):
-        await self.setScheduler()
         works: List[WorkCycle] = []
 
-        days: List[Day] = Day.FRIDAY, Day.SATURDAY, Day.SUNDAY
+        days: Tuple[Day] = (Day.FRIDAY, Day.SATURDAY, Day.SUNDAY)
         tmpWorks: List[WorkCycle] = []
         for day in days:
             tmpWorks.append(WorkCycle(CycleWeek(day, hour=8, minute=0, second=0), WorkerStart(self)))
@@ -30,7 +29,7 @@ class Piternet(object):
         for work in tmpWorks:
             works.append(work)
 
-        days: List[Day] = Day.MONDAY, Day.TUESDAY, Day.WEDNESDAY, Day.THURSDAY
+        days: Tuple[Day] = (Day.MONDAY, Day.TUESDAY, Day.WEDNESDAY, Day.THURSDAY)
         tmpWorks: List[WorkCycle] = []
         for day in days:
             tmpWorks.append(WorkCycle(CycleWeek(day, hour=8, minute=0, second=0), WorkerStart(self)))
