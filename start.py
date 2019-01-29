@@ -1,19 +1,17 @@
 import asyncio
 import logging
+import os
 from logging import config
 
-from utility.system import system
 from utility.configLogger import configLogger
-from utility.development import devolopment
 from piternet import Board, Piternet
 
 
 if __name__ == '__main__':
-    print(system)
     TAG = "START - "
     config.dictConfig(configLogger("View"))
     logger = logging.getLogger(__name__)
-    logger.info(TAG+"MOD: "+devolopment())
+    logger.info(TAG+"PID: "+str(os.getpid()))
 
 
     if True:

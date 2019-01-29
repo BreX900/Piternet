@@ -23,8 +23,8 @@ class Piternet(object):
         days: Tuple[Day] = (Day.FRIDAY, Day.SATURDAY, Day.SUNDAY)
         tmpWorks: List[WorkCycle] = []
         for day in days:
-            tmpWorks.append(WorkCycle(CycleWeek(day, hour=8, minute=0, second=0), WorkerStart(self)))
-            tmpWorks.append(WorkCycle(CycleWeek(day, hour=4, minute=0, second=0), WorkerStop(self)))
+            tmpWorks.append(WorkCycle(CycleWeek(day, hour=8), WorkerStart(self)))
+            tmpWorks.append(WorkCycle(CycleWeek(day, hour=4), WorkerStop(self)))
 
         for work in tmpWorks:
             works.append(work)
@@ -32,8 +32,8 @@ class Piternet(object):
         days: Tuple[Day] = (Day.MONDAY, Day.TUESDAY, Day.WEDNESDAY, Day.THURSDAY)
         tmpWorks: List[WorkCycle] = []
         for day in days:
-            tmpWorks.append(WorkCycle(CycleWeek(day, hour=8, minute=0, second=0), WorkerStart(self)))
-            tmpWorks.append(WorkCycle(CycleWeek(day, hour=1, minute=30, second=0), WorkerStop(self)))
+            tmpWorks.append(WorkCycle(CycleWeek(day, hour=8), WorkerStart(self)))
+            tmpWorks.append(WorkCycle(CycleWeek(day, hour=1, minute=30), WorkerStop(self)))
 
         for work in tmpWorks:
             works.append(work)

@@ -46,6 +46,13 @@ class DateTimeField(object):
         self.second = second
         self.microsecond = microsecond
 
+        optimized = False
+        for key, value in self.__dict__.items():
+            if value is not None:
+                optimized = True
+            elif optimized:
+                self.__setattr__(key, 0)
+
     @property
     def data(self):
         data = {}

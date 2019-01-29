@@ -1,7 +1,8 @@
 from utility.pattern import Singleton
 from utility.development import DEVELOPMENT
+from utility.system import system, System
 
-if DEVELOPMENT:
+if system == System.WINDOWS:
     from utility.GPIOW import GPIO
 else:
     import RPi.GPIO as GPIO
